@@ -7,5 +7,6 @@ sed -i "s/#rewriteDomain=.*/rewriteDomain=$SSMTP_REWRITEDOMAIN/" /etc/ssmtp/ssmt
 sed -i "s/hostname=.*/hostname=$SSMTP_HOSTNAME/" /etc/ssmtp/ssmtp.conf
 sed -i "s/#FromLineOverride=.*/FromLineOverride=YES/" /etc/ssmtp/ssmtp.conf
 sed -i "$ a root:$SSMTP_ROOT_MAIL:$SSMTP_SMTP_HOST" /etc/ssmtp/revaliases
+sed -i "$ a www-data:$SSMTP_ROOT_MAIL:$SSMTP_SMTP_HOST" /etc/ssmtp/revaliases
 
 exec "$@"
