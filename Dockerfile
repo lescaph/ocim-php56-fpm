@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:jessie
 MAINTAINER Antoine Marchand <antoine@svilupo.fr>
 
 ENV DEBIAN_FRONTEND noninteractive
