@@ -8,7 +8,12 @@ RUN apt-get update && apt-get install -y php5-common php5-cli php5-fpm php5-mcry
 RUN sed -i -e "s/;daemonize = yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
     sed -i "s/listen = \/var\/run\/php5-fpm.sock/listen = 0.0.0.0:9000/g" /etc/php5/fpm/pool.d/www.conf && \
     sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/"                  /etc/php5/fpm/php.ini && \
-    sed -i "s/;date.timezone =.*/date.timezone = Europe\/Paris/"        /etc/php5/fpm/php.ini 
+    sed -i "s/;date.timezone =.*/date.timezone = Europe\/Paris/"        /etc/php5/fpm/php.ini
+
+RUN pear install MDB2 && \
+    pear install HTML_QuickForm2 && \
+    pear install MDB2_Driver_mysql && \
+    pear install MDB2_Driver_mysqli
 
 COPY docker-entrypoint.sh /
 
