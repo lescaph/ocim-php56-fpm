@@ -3,7 +3,7 @@ MAINTAINER Antoine Marchand <antoine@svilupo.fr>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y php5-common php5-cli php5-fpm php5-mcrypt php5-imap php5-mysqlnd php5-pgsql php5-apcu php5-gd php5-imagick php5-curl php5-intl php5-xsl php-pear ssmtp wget
+RUN apt-get update && apt-get install -y php5-common php5-cli php5-fpm php5-mcrypt php5-imap php5-mysqlnd php5-pgsql php5-apcu php5-gd php5-imagick php5-curl php5-intl php5-xsl php-pear ssmtp wget xz-utils
 
 WORKDIR /tmp
 
