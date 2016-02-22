@@ -3,7 +3,13 @@ MAINTAINER Antoine Marchand <antoine@svilupo.fr>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y php5-common php5-cli php5-fpm php5-mcrypt php5-imap php5-mysqlnd php5-pgsql php5-apcu php5-gd php5-imagick php5-curl php5-intl php5-xsl php-pear wkhtmltopdf ssmtp
+RUN apt-get update && apt-get install -y php5-common php5-cli php5-fpm php5-mcrypt php5-imap php5-mysqlnd php5-pgsql php5-apcu php5-gd php5-imagick php5-curl php5-intl php5-xsl php-pear ssmtp wget
+
+WORKDIR /tmp
+
+RUN wget http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+    tar xf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+    cp wkhtmltox/bin/wkhtmltopdf /usr/local/bin/ 
 
 RUN sed -i -e "s/;daemonize = yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
     sed -i "s/listen = \/var\/run\/php5-fpm.sock/listen = 0.0.0.0:9000/g" /etc/php5/fpm/pool.d/www.conf && \
