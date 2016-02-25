@@ -7,15 +7,22 @@ RUN apt-get update && apt-get install -y php5-common php5-cli php5-fpm php5-mcry
 
 WORKDIR /tmp
 
+# INSTALL WKHTMLTOPDF
 RUN wget http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
     tar xf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
-    cp wkhtmltox/bin/wkhtmltopdf /usr/local/bin/ 
+    cp wkhtmltox/bin/wkhtmltopdf /usr/local/bin/ && \
+# INSTALL COMPOSER
+    php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php && \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
+    php -r "unlink('composer-setup.php');" 
 
+# CONFIGURE PHP-FPM
 RUN sed -i -e "s/;daemonize = yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
     sed -i "s/listen = \/var\/run\/php5-fpm.sock/listen = 0.0.0.0:9000/g" /etc/php5/fpm/pool.d/www.conf && \
     sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/"                  /etc/php5/fpm/php.ini && \
     sed -i "s/;date.timezone =.*/date.timezone = Europe\/Paris/"        /etc/php5/fpm/php.ini
 
+# INSTALL PEAR DRIVERS
 RUN pear install MDB2 && \
     pear install HTML_QuickForm2 && \
     pear install MDB2_Driver_mysql && \
