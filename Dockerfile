@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER Antoine Marchand <antoine@svilupo.fr>
+LABEL maintainer="Antoine Marchand <antoine@svilupo.fr>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -7,10 +7,6 @@ WORKDIR /tmp
 
 RUN apt-get update && apt-get install -y php5-common php5-cli php5-fpm php5-mcrypt php5-imap php5-mysqlnd php5-pgsql php5-apcu php5-gd php5-imagick php5-curl php5-intl php5-xsl php-pear ssmtp wget xz-utils libxrender-dev && \
 
-# INSTALL WKHTMLTOPDF
-    wget http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
-    tar xf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
-    cp wkhtmltox/bin/wkhtmltopdf /usr/local/bin/ && \
 # INSTALL COMPOSER
     php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
